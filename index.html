@@ -295,21 +295,6 @@
             transform: none;
         }
 
-        .submit-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s;
-        }
-
-        .submit-btn:hover::before {
-            left: 100%;
-        }
-
         /* Terminal output styling */
         .terminal-output {
             background-color: var(--bg-primary);
@@ -360,6 +345,32 @@
 
         .error-message.show {
             display: block;
+        }
+
+        /* Instructions box */
+        .instructions {
+            background-color: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 20px;
+            margin-top: 20px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .instructions h4 {
+            color: var(--accent-blue);
+            margin-bottom: 12px;
+        }
+
+        .instructions ul {
+            margin-left: 20px;
+            color: var(--text-secondary);
+        }
+
+        .instructions li {
+            margin-bottom: 6px;
         }
 
         /* Mobile responsiveness */
@@ -515,6 +526,17 @@
                         </button>
                     </form>
 
+                    <!-- Instructions -->
+                    <div class="instructions">
+                        <h4>📱 How it works:</h4>
+                        <ul>
+                            <li><strong>Mobile:</strong> Will attempt to open Gmail app, then default email app</li>
+                            <li><strong>Desktop:</strong> Opens your default email client or Gmail in browser</li>
+                            <li><strong>If nothing opens:</strong> Check if Gmail app is installed or copy the email manually</li>
+                            <li><strong>Email:</strong> saurabh@altmails.com</li>
+                        </ul>
+                    </div>
+
                     <!-- Terminal Output -->
                     <div class="terminal-output" id="terminalOutput">
                         <div class="terminal-line">
@@ -524,13 +546,13 @@
                             <span class="terminal-success">✓</span> Message compiled successfully
                         </div>
                         <div class="terminal-line">
-                            <span class="terminal-success">✓</span> Launching Gmail application...
+                            <span class="terminal-success">✓</span> Attempting to launch email client...
+                        </div>
+                        <div class="terminal-line" id="dynamicStatus">
+                            <span class="terminal-success">✓</span> Check your device for the email app!
                         </div>
                         <div class="terminal-line">
-                            <span class="terminal-success">✓</span> Gmail app should open with pre-filled message
-                        </div>
-                        <div class="terminal-line">
-                            <span class="terminal-prompt">saurabh@feedback:~$</span> Process completed. Check your device!
+                            <span class="terminal-prompt">saurabh@feedback:~$</span> If no app opened, email manually to: saurabh@altmails.com
                         </div>
                     </div>
                 </div>
@@ -547,6 +569,7 @@
             const message = document.getElementById('message').value.trim();
             const submitBtn = document.getElementById('submitBtn');
             const terminalOutput = document.getElementById('terminalOutput');
+            const dynamicStatus = document.getElementById('dynamicStatus');
             
             // Clear previous error states
             clearErrors();
@@ -582,45 +605,23 @@
                 const emailSubject = encodeURIComponent(subject);
                 const emailBody = encodeURIComponent(message);
                 
-                // Try multiple methods to open Gmail app
-                function openGmailApp() {
-                    // Method 1: Gmail app deep link (works on mobile)
-                    const gmailAppUrl = `googlegmail://co?to=${recipientEmail}&su=${emailSubject}&body=${emailBody}`;
+                // Multiple methods to open email client
+                function attemptEmailOpen() {
+                    const userAgent = navigator.userAgent.toLowerCase();
+                    const isAndroid = userAgent.includes('android');
+                    const isIOS = userAgent.includes('iphone') || userAgent.includes('ipad');
+                    const isMobile = isAndroid || isIOS;
                     
-                    // Method 2: Universal mailto (fallback)
-                    const mailtoUrl = `mailto:${recipientEmail}?subject=${emailSubject}&body=${emailBody}`;
+                    // Create different URL schemes
+                    const urls = [];
                     
-                    // Method 3: Gmail web (final fallback)
-                    const gmailWebUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${recipientEmail}&su=${emailSubject}&body=${emailBody}`;
-                    
-                    // Detect if user is on mobile
-                    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-                    
-                    if (isMobile) {
-                        // Try Gmail app first on mobile
-                        window.location.href = gmailAppUrl;
-                        
-                        // Fallback to mailto after short delay
-                        setTimeout(() => {
-                            window.location.href = mailtoUrl;
-                        }, 1500);
-                    } else {
-                        // On desktop, try mailto first, then Gmail web
-                        try {
-                            window.location.href = mailtoUrl;
-                        } catch (error) {
-                            window.open(gmailWebUrl, '_blank');
-                        }
+                    if (isAndroid) {
+                        // Android Gmail app
+                        urls.push(`intent://send?to=${recipientEmail}&subject=${emailSubject}&body=${emailBody}#Intent;scheme=mailto;package=com.google.android.gm;end`);
+                        // Android Gmail web intent
+                        urls.push(`googlegmail://co?to=${recipientEmail}&su=${emailSubject}&body=${emailBody}`);
                     }
-                }
-                
-                // Execute Gmail opening after terminal animation
-                setTimeout(() => {
-                    openGmailApp();
                     
-                    // Reset form after successful submission
-                    setTimeout(() => {
-                        document.getElementById('feedbackForm').reset();
-                        submitBtn.textContent = './send_to_gmail.sh';
-                        submitBtn.classList.remove('loading');
-                        submitBtn.dis
+                    if (isIOS) {
+                        // iOS Gmail app
+                        urls.push(`googlegmail://co?to=${recipientEmail}&s
