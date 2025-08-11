@@ -3,27 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Feedback Terminal - Send Message</title>
-    <meta name="description" content="Send feedback and suggestions to Saurabh">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Feedback & Suggestions</title>
     <style>
-        :root {
-            --bg-primary: #0d1117;
-            --bg-secondary: #161b22;
-            --bg-tertiary: #21262d;
-            --text-primary: #f0f6fc;
-            --text-secondary: #8b949e;
-            --text-muted: #6e7681;
-            --accent-green: #238636;
-            --accent-blue: #1f6feb;
-            --accent-purple: #8b5cf6;
-            --accent-red: #f85149;
-            --border-color: #30363d;
-            --border-muted: #21262d;
-        }
-
         * {
             margin: 0;
             padding: 0;
@@ -31,193 +12,47 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #ffffff;
+            color: #333333;
             line-height: 1.6;
+            padding: 20px;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 20px;
         }
 
         .container {
-            max-width: 800px;
+            max-width: 600px;
             margin: 0 auto;
             width: 100%;
         }
 
-        /* Terminal-style header */
-        .terminal-header {
-            background-color: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            border-radius: 8px 8px 0 0;
-            padding: 12px 16px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.85rem;
-            margin-bottom: 0;
-        }
-
-        .terminal-dots {
-            display: flex;
-            gap: 6px;
-        }
-
-        .terminal-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-        }
-
-        .terminal-dot.red { background-color: #ff5f56; }
-        .terminal-dot.yellow { background-color: #ffbd2e; }
-        .terminal-dot.green { background-color: #27ca3f; }
-
-        .terminal-title {
-            color: var(--text-secondary);
-            margin-left: 12px;
-        }
-
-        /* Main content area */
-        .main-content {
-            background-color: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            border-top: none;
-            border-radius: 0 0 8px 8px;
-            padding: 0;
-            overflow: hidden;
-        }
-
-        /* Hero section */
-        .hero {
-            padding: 40px;
-            background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-secondary) 100%);
-            border-bottom: 1px solid var(--border-color);
+        .header {
             text-align: center;
-        }
-
-        .feedback-icon {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            border: 3px solid var(--accent-green);
-            margin: 0 auto 20px;
-            background-color: var(--bg-tertiary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 36px;
-            box-shadow: 0 0 0 4px rgba(35, 134, 54, 0.1);
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
-        .page-title {
-            font-size: 2.2rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-            background: linear-gradient(135deg, var(--accent-green), var(--accent-blue));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .subtitle {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            font-weight: 400;
-            margin-bottom: 16px;
-        }
-
-        .status-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background-color: var(--bg-primary);
-            padding: 8px 16px;
-            border-radius: 20px;
-            border: 1px solid var(--border-color);
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.85rem;
-            color: var(--accent-green);
-        }
-
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            background-color: var(--accent-green);
-            border-radius: 50%;
-            animation: blink 2s ease-in-out infinite;
-        }
-
-        @keyframes blink {
-            0%, 50% { opacity: 1; }
-            51%, 100% { opacity: 0.3; }
-        }
-
-        /* Content section */
-        .content {
-            padding: 40px;
-        }
-
-        .section {
             margin-bottom: 40px;
         }
 
-        .section-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 24px;
-            font-family: 'JetBrains Mono', monospace;
-        }
-
-        .section-header h2 {
-            color: var(--text-primary);
-            font-size: 1.4rem;
+        .header h1 {
+            font-size: 2rem;
             font-weight: 600;
+            color: #000000;
+            margin-bottom: 8px;
         }
 
-        .section-icon {
-            color: var(--accent-green);
-            font-size: 1.2rem;
+        .header p {
+            font-size: 1rem;
+            color: #666666;
+            font-weight: 400;
         }
 
-        .line-numbers {
-            color: var(--text-muted);
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.8rem;
-            margin-right: 16px;
-            user-select: none;
-        }
-
-        /* Form styling */
-        .feedback-form {
-            background-color: var(--bg-primary);
-            border: 1px solid var(--border-color);
+        .form-container {
+            background-color: #ffffff;
+            border: 1px solid #e0e0e0;
             border-radius: 8px;
             padding: 30px;
-            position: relative;
-        }
-
-        .feedback-form::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 4px;
-            background: linear-gradient(to bottom, var(--accent-green), var(--accent-blue));
-            border-radius: 2px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         }
 
         .form-group {
@@ -226,206 +61,80 @@
 
         .form-group label {
             display: block;
-            color: var(--text-primary);
-            font-weight: 600;
+            font-weight: 500;
+            color: #000000;
             margin-bottom: 8px;
             font-size: 1rem;
-            font-family: 'JetBrains Mono', monospace;
         }
 
         .form-group input,
         .form-group textarea {
             width: 100%;
             padding: 12px 16px;
-            background-color: var(--bg-tertiary);
-            border: 1px solid var(--border-color);
+            border: 2px solid #e0e0e0;
             border-radius: 6px;
-            color: var(--text-primary);
             font-size: 1rem;
-            font-family: 'JetBrains Mono', monospace;
-            transition: all 0.3s ease;
+            font-family: inherit;
+            background-color: #ffffff;
+            color: #333333;
+            transition: border-color 0.3s ease;
         }
 
         .form-group input:focus,
         .form-group textarea:focus {
             outline: none;
-            border-color: var(--accent-green);
-            box-shadow: 0 0 0 3px rgba(35, 134, 54, 0.1);
-        }
-
-        .form-group input::placeholder,
-        .form-group textarea::placeholder {
-            color: var(--text-muted);
+            border-color: #000000;
         }
 
         .form-group textarea {
             min-height: 120px;
             resize: vertical;
-            line-height: 1.5;
         }
 
         .submit-btn {
             width: 100%;
             padding: 14px 20px;
-            background: linear-gradient(135deg, var(--accent-green), var(--accent-blue));
-            color: var(--text-primary);
+            background-color: #000000;
+            color: #ffffff;
             border: none;
             border-radius: 6px;
             font-size: 1.1rem;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: 'JetBrains Mono', monospace;
-            position: relative;
-            overflow: hidden;
+            transition: background-color 0.3s ease;
+            font-family: inherit;
         }
 
         .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(35, 134, 54, 0.3);
+            background-color: #333333;
         }
 
         .submit-btn:active {
-            transform: translateY(0);
+            transform: translateY(1px);
         }
 
-        .submit-btn.loading {
-            background: var(--bg-tertiary);
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        /* Terminal output styling */
-        .terminal-output {
-            background-color: var(--bg-primary);
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            padding: 20px;
+        .note {
             margin-top: 20px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            display: none;
-        }
-
-        .terminal-output.show {
-            display: block;
-        }
-
-        .terminal-line {
-            margin-bottom: 4px;
-        }
-
-        .terminal-prompt {
-            color: var(--accent-green);
-        }
-
-        .terminal-success {
-            color: var(--accent-green);
-        }
-
-        .terminal-error {
-            color: var(--accent-red);
-        }
-
-        /* Error styling */
-        .form-group input.error,
-        .form-group textarea.error {
-            border-color: var(--accent-red);
-            box-shadow: 0 0 0 3px rgba(248, 81, 73, 0.1);
-        }
-
-        .error-message {
-            color: var(--accent-red);
-            font-size: 0.85rem;
-            font-family: 'JetBrains Mono', monospace;
-            margin-top: 6px;
-            display: none;
-        }
-
-        .error-message.show {
-            display: block;
-        }
-
-        /* Instructions box */
-        .instructions {
-            background-color: var(--bg-primary);
-            border: 1px solid var(--border-color);
+            padding: 16px;
+            background-color: #f8f8f8;
             border-radius: 6px;
-            padding: 20px;
-            margin-top: 20px;
-            font-family: 'JetBrains Mono', monospace;
+            text-align: center;
+            color: #666666;
             font-size: 0.9rem;
-            color: var(--text-secondary);
-        }
-
-        .instructions h4 {
-            color: var(--accent-blue);
-            margin-bottom: 12px;
-        }
-
-        .instructions ul {
-            margin-left: 20px;
-            color: var(--text-secondary);
-        }
-
-        .instructions li {
-            margin-bottom: 6px;
         }
 
         /* Mobile responsiveness */
-        @media (max-width: 768px) {
+        @media (max-width: 480px) {
             body {
                 padding: 15px;
             }
 
-            .hero {
-                padding: 30px 20px;
-            }
-
-            .content {
-                padding: 30px 20px;
-            }
-
-            .page-title {
+            .header h1 {
                 font-size: 1.8rem;
             }
 
-            .feedback-form {
+            .form-container {
                 padding: 20px;
-            }
-
-            .section-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 8px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .terminal-header {
-                padding: 8px 12px;
-                font-size: 0.8rem;
-            }
-
-            .terminal-title {
-                display: none;
-            }
-
-            .hero {
-                padding: 25px 15px;
-            }
-
-            .content {
-                padding: 25px 15px;
-            }
-
-            .page-title {
-                font-size: 1.6rem;
-            }
-
-            .feedback-form {
-                padding: 15px;
             }
 
             .form-group input,
@@ -439,123 +148,79 @@
             }
         }
 
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
+        @media (max-width: 320px) {
+            body {
+                padding: 10px;
             }
-            to {
-                opacity: 1;
-                transform: translateY(0);
+
+            .header h1 {
+                font-size: 1.6rem;
+            }
+
+            .form-container {
+                padding: 15px;
             }
         }
 
-        .main-content {
-            animation: fadeInUp 0.6s ease-out;
+        /* Loading state */
+        .submit-btn.loading {
+            background-color: #666666;
+            cursor: not-allowed;
         }
 
-        .section {
-            opacity: 0;
-            animation: fadeInUp 0.6s ease-out forwards;
-            animation-delay: 0.2s;
+        /* Form validation styling */
+        .form-group input.error,
+        .form-group textarea.error {
+            border-color: #ff0000;
+        }
+
+        .error-message {
+            color: #ff0000;
+            font-size: 0.9rem;
+            margin-top: 4px;
+            display: none;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Terminal-style header -->
-        <div class="terminal-header">
-            <div class="terminal-dots">
-                <div class="terminal-dot red"></div>
-                <div class="terminal-dot yellow"></div>
-                <div class="terminal-dot green"></div>
-            </div>
-            <div class="terminal-title">feedback@saurabh:~$ send_message</div>
+        <div class="header">
+            <h1>Feedback & Suggestions</h1>
+            <p>We'd love to hear from you. Share your thoughts with us!</p>
         </div>
 
-        <div class="main-content">
-            <!-- Hero Section -->
-            <div class="hero">
-                <div class="feedback-icon">
-                    📝
+        <div class="form-container">
+            <form id="feedbackForm">
+                <div class="form-group">
+                    <label for="subject">Subject *</label>
+                    <input 
+                        type="text" 
+                        id="subject" 
+                        name="subject" 
+                        placeholder="Enter the subject of your feedback"
+                        required
+                    >
+                    <div class="error-message" id="subjectError">Please enter a subject</div>
                 </div>
-                <h1 class="page-title">Feedback Terminal</h1>
-                <p class="subtitle">Share your thoughts, suggestions, or feedback</p>
-                <div class="status-badge">
-                    <div class="status-dot"></div>
-                    Ready to receive input
+
+                <div class="form-group">
+                    <label for="message">Message *</label>
+                    <textarea 
+                        id="message" 
+                        name="message" 
+                        placeholder="Share your feedback, suggestions, or any thoughts you'd like us to know..."
+                        required
+                    ></textarea>
+                    <div class="error-message" id="messageError">Please enter your message</div>
                 </div>
-            </div>
 
-            <div class="content">
-                <!-- Feedback Form Section -->
-                <div class="section">
-                    <div class="section-header">
-                        <span class="line-numbers">01</span>
-                        <span class="section-icon">📨</span>
-                        <h2>message.compose()</h2>
-                    </div>
-                    
-                    <form class="feedback-form" id="feedbackForm">
-                        <div class="form-group">
-                            <label for="subject">$ subject --required</label>
-                            <input 
-                                type="text" 
-                                id="subject" 
-                                name="subject" 
-                                placeholder="Enter your message subject..."
-                                required
-                            >
-                            <div class="error-message" id="subjectError">Error: Subject field cannot be empty</div>
-                        </div>
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    Send Feedback
+                </button>
+            </form>
 
-                        <div class="form-group">
-                            <label for="message">$ message --body --required</label>
-                            <textarea 
-                                id="message" 
-                                name="message" 
-                                placeholder="Type your feedback, suggestions, or any thoughts here...&#10;&#10;Feel free to share:&#10;• Bug reports&#10;• Feature requests&#10;• General feedback&#10;• Suggestions for improvement"
-                                required
-                            ></textarea>
-                            <div class="error-message" id="messageError">Error: Message body cannot be empty</div>
-                        </div>
-
-                        <button type="submit" class="submit-btn" id="submitBtn">
-                            ./send_to_gmail.sh
-                        </button>
-                    </form>
-
-                    <!-- Instructions -->
-                    <div class="instructions">
-                        <h4>📱 How it works:</h4>
-                        <ul>
-                            <li><strong>Mobile:</strong> Will attempt to open Gmail app, then default email app</li>
-                            <li><strong>Desktop:</strong> Opens your default email client or Gmail in browser</li>
-                            <li><strong>If nothing opens:</strong> Check if Gmail app is installed or copy the email manually</li>
-                            <li><strong>Email:</strong> saurabh@altmails.com</li>
-                        </ul>
-                    </div>
-
-                    <!-- Terminal Output -->
-                    <div class="terminal-output" id="terminalOutput">
-                        <div class="terminal-line">
-                            <span class="terminal-prompt">saurabh@feedback:~$</span> Executing send_to_gmail.sh...
-                        </div>
-                        <div class="terminal-line">
-                            <span class="terminal-success">✓</span> Message compiled successfully
-                        </div>
-                        <div class="terminal-line">
-                            <span class="terminal-success">✓</span> Attempting to launch email client...
-                        </div>
-                        <div class="terminal-line" id="dynamicStatus">
-                            <span class="terminal-success">✓</span> Check your device for the email app!
-                        </div>
-                        <div class="terminal-line">
-                            <span class="terminal-prompt">saurabh@feedback:~$</span> If no app opened, email manually to: saurabh@altmails.com
-                        </div>
-                    </div>
-                </div>
+            <div class="note">
+                <p>📱 This will open your Gmail app with the feedback pre-filled. You can review and send it from there.</p>
             </div>
         </div>
     </div>
@@ -568,8 +233,6 @@
             const subject = document.getElementById('subject').value.trim();
             const message = document.getElementById('message').value.trim();
             const submitBtn = document.getElementById('submitBtn');
-            const terminalOutput = document.getElementById('terminalOutput');
-            const dynamicStatus = document.getElementById('dynamicStatus');
             
             // Clear previous error states
             clearErrors();
@@ -578,12 +241,12 @@
             let isValid = true;
             
             if (!subject) {
-                showError('subject', 'subjectError');
+                showError('subject', 'subjectError', 'Please enter a subject');
                 isValid = false;
             }
             
             if (!message) {
-                showError('message', 'messageError');
+                showError('message', 'messageError', 'Please enter your message');
                 isValid = false;
             }
             
@@ -592,36 +255,112 @@
             }
             
             // Show loading state
-            submitBtn.textContent = 'Executing...';
+            submitBtn.textContent = 'Opening Gmail App...';
             submitBtn.classList.add('loading');
             submitBtn.disabled = true;
             
-            // Show terminal output
-            setTimeout(() => {
-                terminalOutput.classList.add('show');
+            // Prepare email data
+            const recipientEmail = 'saurabh@altmails.com';
+            const emailSubject = encodeURIComponent(subject);
+            const emailBody = encodeURIComponent(message);
+            
+            // Try multiple methods to open Gmail app
+            function openGmailApp() {
+                // Method 1: Try Gmail app deep link (works on mobile)
+                const gmailAppUrl = `googlegmail://co?to=${recipientEmail}&su=${emailSubject}&body=${emailBody}`;
                 
-                // Prepare email data
-                const recipientEmail = 'saurabh@altmails.com';
-                const emailSubject = encodeURIComponent(subject);
-                const emailBody = encodeURIComponent(message);
+                // Method 2: Universal mailto (fallback)
+                const mailtoUrl = `mailto:${recipientEmail}?subject=${emailSubject}&body=${emailBody}`;
                 
-                // Multiple methods to open email client
-                function attemptEmailOpen() {
-                    const userAgent = navigator.userAgent.toLowerCase();
-                    const isAndroid = userAgent.includes('android');
-                    const isIOS = userAgent.includes('iphone') || userAgent.includes('ipad');
-                    const isMobile = isAndroid || isIOS;
+                // Method 3: Gmail web (final fallback)
+                const gmailWebUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${recipientEmail}&su=${emailSubject}&body=${emailBody}`;
+                
+                // Detect if user is on mobile
+                const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+                
+                if (isMobile) {
+                    // Try Gmail app first on mobile
+                    window.location.href = gmailAppUrl;
                     
-                    // Create different URL schemes
-                    const urls = [];
-                    
-                    if (isAndroid) {
-                        // Android Gmail app
-                        urls.push(`intent://send?to=${recipientEmail}&subject=${emailSubject}&body=${emailBody}#Intent;scheme=mailto;package=com.google.android.gm;end`);
-                        // Android Gmail web intent
-                        urls.push(`googlegmail://co?to=${recipientEmail}&su=${emailSubject}&body=${emailBody}`);
+                    // Fallback to mailto after short delay
+                    setTimeout(() => {
+                        window.location.href = mailtoUrl;
+                    }, 1000);
+                } else {
+                    // On desktop, try mailto first, then Gmail web
+                    try {
+                        window.location.href = mailtoUrl;
+                    } catch (error) {
+                        window.open(gmailWebUrl, '_blank');
                     }
-                    
-                    if (isIOS) {
-                        // iOS Gmail app
-                        urls.push(`googlegmail://co?to=${recipientEmail}&s
+                }
+            }
+            
+            // Small delay for better UX
+            setTimeout(() => {
+                openGmailApp();
+                
+                // Reset form and button
+                setTimeout(() => {
+                    document.getElementById('feedbackForm').reset();
+                    submitBtn.textContent = 'Send Feedback';
+                    submitBtn.classList.remove('loading');
+                    submitBtn.disabled = false;
+                    showSuccessMessage();
+                }, 1500);
+            }, 1000);
+        });
+        
+        function showError(fieldId, errorId, message) {
+            const field = document.getElementById(fieldId);
+            const errorElement = document.getElementById(errorId);
+            
+            field.classList.add('error');
+            errorElement.textContent = message;
+            errorElement.style.display = 'block';
+        }
+        
+        function clearErrors() {
+            const errorFields = document.querySelectorAll('.error');
+            const errorMessages = document.querySelectorAll('.error-message');
+            
+            errorFields.forEach(field => field.classList.remove('error'));
+            errorMessages.forEach(msg => {
+                msg.style.display = 'none';
+                msg.textContent = '';
+            });
+        }
+        
+        function showSuccessMessage() {
+            const note = document.querySelector('.note');
+            const originalContent = note.innerHTML;
+            
+            note.innerHTML = '<p style="color: #008000;">✅ Gmail app should open shortly! Please check your phone and send the email.</p>';
+            note.style.backgroundColor = '#f0f8f0';
+            
+            // Reset after 5 seconds
+            setTimeout(() => {
+                note.innerHTML = originalContent;
+                note.style.backgroundColor = '#f8f8f8';
+            }, 5000);
+        }
+        
+        // Clear error styling when user starts typing
+        document.getElementById('subject').addEventListener('input', function() {
+            this.classList.remove('error');
+            document.getElementById('subjectError').style.display = 'none';
+        });
+        
+        document.getElementById('message').addEventListener('input', function() {
+            this.classList.remove('error');
+            document.getElementById('messageError').style.display = 'none';
+        });
+        
+        // Auto-resize textarea
+        document.getElementById('message').addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = this.scrollHeight + 'px';
+        });
+    </script>
+</body>
+</html>
